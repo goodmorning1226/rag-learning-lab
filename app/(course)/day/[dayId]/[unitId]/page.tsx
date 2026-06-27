@@ -120,6 +120,7 @@ export default function UnitPage({
             language={unit.pythonExample.language}
             filename={unit.pythonExample.filename}
             explanation={unit.pythonExample.codeExplanation}
+            runnable
           />
         </section>
       )}

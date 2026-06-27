@@ -100,7 +100,7 @@ export default function ProjectPage() {
         <p className="mb-3 text-sm text-muted-foreground">
           下面是完整的 final_project.py，可直接複製到本機（VS Code / Jupyter）執行，不需要任何 API Key。
         </p>
-        <CodeBlock code={p.fullCode} filename="final_project.py" />
+        <CodeBlock code={p.fullCode} filename="final_project.py" runnable />
       </section>
 
       {/* 延伸挑戰 */}

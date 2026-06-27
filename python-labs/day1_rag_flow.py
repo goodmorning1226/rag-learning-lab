@@ -9,11 +9,11 @@ def build_knowledge_base(documents):
 
 def chunking(documents):
     print("2) Chunking：把長文件切成小段")
-    return documents
+    return ["chunk A", "chunk B"]          # 實際會把每份文件切成多個小段
 
 def embedding(chunks):
     print("3) Embedding：把每段文字轉成向量")
-    return chunks
+    return [[0.1, 0.2], [0.3, 0.4]]        # 實際會用模型把每段文字轉成向量
 
 def store_in_vector_db(vectors):
     print("4) Vector DB：把向量存進向量資料庫")

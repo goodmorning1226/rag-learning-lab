@@ -34,6 +34,7 @@
 - 📝 **互動練習**：四種題型（選擇 / 簡答 / 預測輸出 / 程式填空），可作答、查看提示、提交對答案、看標準答案與解析。
 - 🌗 **深色模式**：右上角一鍵切換，偏好存於瀏覽器。
 - 🔤 **名詞速查表 `/glossary`** 與 **進階概念頁 `/advanced`**（Hybrid search、Reranking、Query rewriting、Agentic RAG + 升級成真實 embedding/LLM 指南）。
+- ▶️ **瀏覽器內執行 Python**：純標準庫的範例可直接按「執行」，用 Pyodide 在瀏覽器跑並顯示輸出（首次點擊才從 CDN 載入）。
 - 🐍 **可執行 `python-labs/`**：所有範例自動匯出成可直接 `python` 執行的 `.py` 檔。
 - 💾 **進度持久化**：完成狀態與答對紀錄存於 `localStorage`，回訪自動接續。
 - 🚀 **最終專案頁**：Mini RAG Knowledge Base，11 步逐步引導，含完整可複製的 `final_project.py`。
@@ -51,6 +52,7 @@
 | 圖解 | 純 div + Tailwind（無 SVG 依賴） |
 | 狀態 / 儲存 | React Context + `localStorage`（無後端） |
 | 範例語言 | Python 3（標準庫，無外部套件） |
+| 瀏覽器執行 Python | [Pyodide](https://pyodide.org/)（CDN lazy-load） |
 
 ## 安裝方式
 
@@ -196,15 +198,17 @@ rag-learning-lab/
 
 ## 未來可擴充功能
 
-> 名詞速查表、進階概念（Hybrid search / Reranking / Query rewriting / Agentic RAG）、升級真實 embedding/LLM 指南、深色模式、行動版導航、`/progress` 頁、`python-labs/` 匯出皆已完成。剩下一項較重的擴充：
+> 原規劃的擴充項目均已實作：深色模式、名詞速查表、進階概念頁、升級真實 embedding/LLM 指南、行動版導航、`/progress` 頁、`python-labs/` 匯出，以及**瀏覽器內直接執行 Python（Pyodide）**。可能的後續方向：
 
-- 🌐 **真正在瀏覽器執行 Python**：以 Pyodide 讓練習可直接在網頁跑（需載入約 10MB WebAssembly、整合較複雜，故目前採「複製到本機執行 + 線上對答案」的方式）。
+- 💬 多輪對話式 RAG（把對話歷史一起注入）。
+- 🗄️ 串接真實向量資料庫（Chroma）的線上 demo。
+- ☁️ 帳號與雲端進度同步（目前進度僅存於單一瀏覽器）。
 
 ## 注意事項
 
 - **以前端為主、無後端**：所有內容與進度都在瀏覽器端；清除瀏覽器資料會清空學習進度。
 - **進度存於 localStorage**：不同瀏覽器 / 裝置之間不會同步。
-- **Python 範例需在本機執行**：網站不在瀏覽器跑 Python，請複製到 VS Code / Jupyter 執行。Day 1–4 只用標準庫即可。
+- **瀏覽器執行 Python（Pyodide）**：純標準庫的範例可按「執行」直接在瀏覽器跑；首次點擊會從 CDN 下載 Pyodide（約數 MB，需網路）。也可改用 `python-labs/` 的 `.py` 在本機 VS Code / Jupyter 執行。
 - **LLM 為模擬**：課程與最終專案用 mock 函式模擬模型回答，**不會呼叫任何外部 API、不需要 API Key**；要接真實模型時再自行替換。
 - **教學用簡化實作**：embedding 用詞頻向量、vector store 用 list + cosine，目的是讓你看懂原理；正式專案請改用真正的 embedding 模型與向量資料庫（Chroma / FAISS / pgvector）。
 - **主要為桌面體驗**：版面以桌面閱讀為主，行動裝置可閱讀但導航體驗較受限。

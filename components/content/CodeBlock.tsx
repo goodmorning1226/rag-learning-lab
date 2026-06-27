@@ -4,6 +4,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyButton } from "./CopyButton";
 import { CodeExplanation } from "./CodeExplanation";
+import { PyRunner } from "./PyRunner";
 import { cn } from "@/lib/utils";
 import type { CodeExplanationItem } from "@/data/types";
 
@@ -12,6 +13,8 @@ interface CodeBlockProps {
   language?: string;
   filename?: string;
   explanation?: CodeExplanationItem[];
+  /** 顯示「執行」按鈕，於瀏覽器以 Pyodide 跑（僅適用純標準庫的 Python） */
+  runnable?: boolean;
   className?: string;
 }
 
@@ -26,6 +29,7 @@ export function CodeBlock({
   language = "python",
   filename,
   explanation,
+  runnable = false,
   className,
 }: CodeBlockProps) {
   const label = LANG_LABEL[language] ?? language;
@@ -66,6 +70,7 @@ export function CodeBlock({
             {code}
           </SyntaxHighlighter>
         </div>
+        {runnable && <PyRunner code={code} />}
       </div>
 
       {/* 逐行／分段說明（若 courseData 有提供 codeExplanation） */}
