@@ -44,6 +44,39 @@
       "Microsoft JhengHei", sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, "Fira Code", monospace;
   }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 47% 13%;
+    --card-foreground: 210 40% 96%;
+
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 96%;
+
+    --accent: 217 33% 18%;
+    --accent-foreground: 210 40% 96%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+
+    --success: 142 69% 45%;
+    --success-foreground: 222 47% 11%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 222 47% 11%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 96%;
+
+    --border: 217 33% 24%;
+    --input: 217 33% 24%;
+    --ring: 217 91% 60%;
+  }
 }
 
 @layer base {

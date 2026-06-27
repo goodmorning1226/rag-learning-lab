@@ -5,17 +5,30 @@ import { EmbeddingSpaceDiagram } from "./EmbeddingSpaceDiagram";
 import { VectorSearchDiagram } from "./VectorSearchDiagram";
 import { PromptInjectionDiagram } from "./PromptInjectionDiagram";
 import { EvaluationDiagram } from "./EvaluationDiagram";
+import { ContrastDiagram } from "./ContrastDiagram";
+import { RagVsFinetuneDiagram } from "./RagVsFinetuneDiagram";
+import { CleanTextDiagram } from "./CleanTextDiagram";
+import { VectorDBCompareDiagram } from "./VectorDBCompareDiagram";
 
 /**
  * 把每個單元（dayId/slug）對應到最合適的圖解元件。
  * 沒有對應的單元，會退回顯示文字版 diagramDescription。
  */
 const UNIT_DIAGRAM: Record<string, ComponentType> = {
+  // 為什麼需要 RAG（閉書 vs 開書）
+  "day1/why-rag": ContrastDiagram,
+
+  // RAG vs Fine-tuning 比較
+  "day1/rag-vs-finetuning": RagVsFinetuneDiagram,
+
   // RAG 全流程
   "day1/rag-flow": RagFlowDiagram,
   "day1/minimal-rag": RagFlowDiagram,
   "day6/pipeline-overview": RagFlowDiagram,
-  "day1/what-problems": RagFlowDiagram,
+  "day6/load-documents": RagFlowDiagram,
+
+  // 文件讀取與清理
+  "day2/load-clean": CleanTextDiagram,
 
   // Chunking
   "day2/chunk-size": ChunkingDiagram,
@@ -31,6 +44,9 @@ const UNIT_DIAGRAM: Record<string, ComponentType> = {
   "day3/query-document-embedding": EmbeddingSpaceDiagram,
   "day6/embed-chunks": EmbeddingSpaceDiagram,
 
+  // Vector DB 方案比較
+  "day4/compare-vectordb": VectorDBCompareDiagram,
+
   // 向量搜尋 / 檢索
   "day3/semantic-search": VectorSearchDiagram,
   "day4/what-vectordb": VectorSearchDiagram,
@@ -39,6 +55,7 @@ const UNIT_DIAGRAM: Record<string, ComponentType> = {
   "day4/metadata": VectorSearchDiagram,
   "day5/query-embedding": VectorSearchDiagram,
   "day5/topk-retrieval": VectorSearchDiagram,
+  "day6/store-vectors": VectorSearchDiagram,
   "day6/retrieve-context": VectorSearchDiagram,
 
   // Prompt 組裝

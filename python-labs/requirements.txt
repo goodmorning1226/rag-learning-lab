@@ -1,0 +1,5 @@
+# 課程中的核心範例皆使用 Python 標準庫，不需安裝任何套件。
+# 若要把簡化版升級為真實系統（見 upgrades/），再安裝以下（擇需安裝）：
+# sentence-transformers
+# chromadb
+# anthropic

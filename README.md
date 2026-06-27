@@ -27,10 +27,14 @@
 
 - 📚 **7 天 39 單元課程**：每單元含學習目標、白話說明、實務直覺、圖解、Python 範例、練習與總結。
 - 🧭 **側邊欄單元導航**：Day 1–7 樹狀結構，目前位置高亮、完成單元顯示綠勾。
-- 📊 **學習進度追蹤**：Dashboard 顯示單元完成率與練習完成率雙進度條；單元可手動標記完成。
-- 🎨 **簡潔流程圖解**：純 div + Tailwind 的 6 種圖解（RAG 流程、Chunking、Embedding 空間、向量搜尋、Prompt 組裝、評估），響應式、無複雜 SVG。
+- 🧭 **桌面側欄 + 手機抽屜導航**：桌面固定側欄、手機 ☰ 開啟全螢幕抽屜，皆含完成狀態。
+- 📊 **學習進度**：Dashboard 與獨立 `/progress` 頁顯示單元 / 練習雙進度條、各天進度，並可重置。
+- 🎨 **簡潔流程圖解**：純 div + Tailwind 的 10 種圖解（RAG 流程、閉書/開書對比、RAG vs FT、清理、Chunking、Embedding 空間、向量搜尋、Vector DB 比較、Prompt 組裝、評估），響應式、無 SVG。
 - 💻 **深色程式碼區**：語法高亮、語言標籤、Copy 按鈕（Copied 回饋）、水平捲動、可選的逐行說明。
 - 📝 **互動練習**：四種題型（選擇 / 簡答 / 預測輸出 / 程式填空），可作答、查看提示、提交對答案、看標準答案與解析。
+- 🌗 **深色模式**：右上角一鍵切換，偏好存於瀏覽器。
+- 🔤 **名詞速查表 `/glossary`** 與 **進階概念頁 `/advanced`**（Hybrid search、Reranking、Query rewriting、Agentic RAG + 升級成真實 embedding/LLM 指南）。
+- 🐍 **可執行 `python-labs/`**：所有範例自動匯出成可直接 `python` 執行的 `.py` 檔。
 - 💾 **進度持久化**：完成狀態與答對紀錄存於 `localStorage`，回訪自動接續。
 - 🚀 **最終專案頁**：Mini RAG Knowledge Base，11 步逐步引導，含完整可複製的 `final_project.py`。
 
@@ -75,6 +79,16 @@ npm run lint     # 程式碼檢查
 
 > 課程中的 Python 範例是設計成複製到本機執行的。Day 1–4 全部使用 Python 標準庫即可執行；Day 5 之後若要接真實 LLM，才需要自行準備 API（初版用 mock 函式模擬，無需 API Key）。
 
+## 部署（Deployment）
+
+本專案是標準 Next.js App Router 應用，可直接部署到任何支援 Next.js 的平台：
+
+- **Vercel（最簡單）**：把 repo 連到 Vercel，會自動偵測 Next.js 並 `npm run build`，無需額外設定。
+- **自架 / Node 環境**：執行 `npm run build` 後 `npm run start`（預設 port 3000）。
+- **容器化**：以 Node 20 base image，建置後跑 `npm run start` 即可。
+
+> 本站無後端、無環境變數需求，所有資料皆為靜態內容與瀏覽器端狀態，部署相當單純。
+
 ## 專案資料夾結構
 
 ```
@@ -86,24 +100,32 @@ rag-learning-lab/
 │  └─ (course)/                        # 課程路由群組（共用 Header + Sidebar）
 │     ├─ layout.tsx                    # 三段式版面殼
 │     ├─ day/[dayId]/[unitId]/page.tsx # 課程單元頁模板
-│     └─ project/page.tsx              # 最終專案頁
+│     ├─ project/page.tsx              # 最終專案頁
+│     ├─ progress/page.tsx             # 學習進度頁
+│     ├─ advanced/page.tsx             # 進階概念頁（選讀）
+│     └─ glossary/page.tsx             # RAG 名詞速查表
 ├─ components/
 │  ├─ ui/          # 基礎元件：button / card / progress / badge
-│  ├─ layout/      # Header / Sidebar / CompleteToggle / VisitTracker
+│  ├─ layout/      # Header / Sidebar / SidebarNav / MobileNav / ThemeToggle / CompleteToggle / VisitTracker
 │  ├─ content/     # CodeBlock / CopyButton / CodeExplanation / Callout
 │  ├─ exercise/    # ExerciseCard / AnswerChecker / HintButton / AnswerReveal / ExerciseProgress
-│  ├─ dashboard/   # ProgressCard / DayCard
-│  └─ diagrams/    # 6 種圖解 + primitives + UnitDiagram（單元→圖解解析器）
+│  ├─ dashboard/   # ProgressCard / DayCard / ProgressView / GlossaryView
+│  └─ diagrams/    # 10 種圖解 + primitives + UnitDiagram（單元→圖解解析器）
 ├─ data/
 │  ├─ types.ts        # 共用型別（Day / Unit / Exercise / Progress …）
 │  ├─ courseData.ts   # 課程內容單一真實來源（7 天 39 單元）
-│  └─ finalProject.ts # 最終專案資料（11 步 + 完整參考解答）
+│  ├─ finalProject.ts # 最終專案資料（11 步 + 完整參考解答）
+│  ├─ glossary.ts     # 名詞速查表資料
+│  └─ advanced.ts     # 進階概念與升級範例資料
 ├─ hooks/
 │  └─ useProgress.tsx # 進度 Context（讀寫 localStorage）
 ├─ lib/
 │  ├─ utils.ts        # cn() 類名合併工具
 │  ├─ storage.ts      # localStorage 讀寫
 │  └─ check-answer.ts # 練習答案判斷邏輯
+├─ scripts/
+│  └─ export-labs.mjs # 把 Python 範例匯出成可執行 .py
+├─ python-labs/       # 由 export-labs 產生的可執行 Python 範例（含 final_project.py）
 ├─ tailwind.config.ts
 ├─ next.config.mjs
 └─ tsconfig.json
@@ -174,14 +196,9 @@ rag-learning-lab/
 
 ## 未來可擴充功能
 
-- 📱 **行動版 Sidebar 抽屜**：目前側邊欄在小螢幕隱藏，可加入 ☰ 開啟的 overlay 導航。
-- 📈 **獨立學習進度頁** `/progress`：各 Day 完成度總覽 + 重置進度。
-- 🔤 **RAG 名詞速查表**：Embedding / Chunk / Top-k / Grounded 等中英對照快速複習。
-- 🧠 **真實 embedding 與 LLM**：把範例升級為 sentence-transformers + 真正的 LLM API。
-- 🌗 **深色模式**：配色已用 CSS 變數預留，可低成本加入。
-- 🐍 **`python-labs/` 資料夾**：把所有範例輸出成可直接 `python` 執行的 `.py` 檔。
-- 🧩 **進階主題單元**：Hybrid search、Reranking、Query rewriting、Agentic RAG 的白話說明。
-- 🌐 **真正在瀏覽器執行 Python**：以 Pyodide 讓練習可直接在網頁跑（目前為離線執行 + 對答案）。
+> 名詞速查表、進階概念（Hybrid search / Reranking / Query rewriting / Agentic RAG）、升級真實 embedding/LLM 指南、深色模式、行動版導航、`/progress` 頁、`python-labs/` 匯出皆已完成。剩下一項較重的擴充：
+
+- 🌐 **真正在瀏覽器執行 Python**：以 Pyodide 讓練習可直接在網頁跑（需載入約 10MB WebAssembly、整合較複雜，故目前採「複製到本機執行 + 線上對答案」的方式）。
 
 ## 注意事項
 
